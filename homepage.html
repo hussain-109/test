@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="New folder/favicon.ico">
+    <title>EasyJourney</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        *::selection {
+            background-color: none;
+        }
+
+        .heading {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+        }
+
+        .form {
+            width: 20vw;
+            height: 100vh;
+            background-color: rgb(63, 31, 221);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0px 0px 30px 5px blue;
+            border-right: 4px solid rgb(0, 0, 135);
+        }
+
+        input {
+            margin: 10px;
+            padding: 5px 10px;
+            width: 250px;
+            height: 30px;
+            background-color: rgba(242, 237, 237, 0.3);
+            border: 2px solid blue;
+            color: white;
+            font-size: 15px;
+            border-radius: 5px;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        input::selection {
+            background-color: blueviolet;
+        }
+
+        #formi {
+            margin: 0px 10px;
+            color: white;
+            font-size: 25px;
+            /* font-family: 'forte'; */
+
+        }
+
+        #logo {
+            margin: 10px auto 30px;
+        }
+
+        .searchBtn {
+            margin: 20px;
+            float: right;
+            background-color: rgb(249, 68, 68);
+            color: white;
+            height: 30px;
+            width: 120px;
+            border-radius: 5px;
+            border: 2px solid rgb(255, 0, 0);
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .searchBtn:nth-child(2) {
+            width: 70px
+        }
+
+        .searchBtn:hover {
+            background-color: red;
+        }
+
+        .pannels {
+            width: 40vw;
+            height: 100vh;
+            background-color: #f1ecec;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        #train {
+            border-right: 1px solid rgb(0, 0, 135);
+            box-shadow : 0rem 2rem 15rem 10px blue inset;
+        }
+
+        #visit {
+            border-right: 1px solid rgb(0, 0, 135);
+            box-shadow : 0rem 2rem 15rem 10px blue inset;
+        }
+
+        .h {
+            width: 40vw;
+            height: 4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            /* border-bottom: 2px solid blue; */
+            background-color: rgb(63, 31, 221);
+            color: whitesmoke;
+            border-bottom: 5px solid rgb(0, 0, 135);
+        }
+
+        .goButton {
+            margin: 20px;
+            float: right;
+            background-color: rgb(249, 68, 68);
+            color: white;
+            height: 30px;
+            width: auto;
+            border-radius: 5px;
+            border: 2px solid rgb(255, 0, 0);
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 0rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        .goButton:hover {
+            background-color: red;
+        }
+
+        #setUpdate {
+            font-size: 2rem;
+        }
+
+        .trainList {
+            width: 35vw;
+            margin-top: 2rem;
+            overflow: scroll;
+            height: 75vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 0.5rem;
+        }
+
+        .trainListItem {
+            width: 32vw;
+            height: 8rem;
+            background-color: rgb(243, 225, 110);
+            border-radius: 4px;
+            /* box-shadow: 0px 0px 5px 0px black; */
+            box-shadow: 5px 5px 10px rgb(117, 116, 116);
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            grid-template-rows: 4rem auto auto;
+            margin: 0rem auto 2rem auto;
+            border: 2px solid black;
+            display: none;
+        }
+
+        .t_Img {
+            grid-row: 1/2;
+            grid-column: 1/2;
+            display: flex;
+            align-items: center;
+            width: 2rem;
+
+        }
+
+        .tName {
+            grid-row: 1/2;
+            grid-column: 2/5;
+            display: flex;
+            align-items: center;
+            color: Red;
+            font-size: 1.3rem;
+        }
+
+        .ssdetails {
+            grid-row: 3/4;
+            display: flex;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .dsdetails {
+            grid-row: 3/4;
+            display: flex;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .timeLine {
+            grid-row: 3/4;
+            grid-column: 2/4;
+            display: flex;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .ss_tag {
+            grid-row: 2/3;
+            grid-column: 1/2;
+            display: flex;
+            justify-content: center;
+        }
+
+        .ds_tag {
+            grid-row: 2/3;
+            grid-column: 4/5;
+
+            display: flex;
+            justify-content: center;
+        }
+
+        .visit_form {
+            width: 40vw;
+            height: 4rem;
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            border-bottom: 5px solid rgb(0, 0, 135);
+            background-color: rgb(63, 31, 221);
+            color: whitesmoke;
+        }
+
+        #visitPlaceList {
+             font-size: 1.8rem;
+             color: rgb(213, 6, 61);
+             margin: 2rem 0rem 2rem 1.5rem;
+            height: 78vh;
+            width: 30vw;
+            font-family: Calibri;  
+            overflow: scroll;
+        }
+
+
+        .time_tag {
+            grid-row: 2/3;
+            grid-column: 2/4;
+            display: flex;
+            justify-content: center;
+        }
+
+        #signOutUser {
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            font-size: 1.5rem;
+            text-decoration: underline;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+        }
+
+        #signOut {
+            margin: auto 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="heading">
+
+
+        <div class="form">
+            <img id="logo" src="New folder/Easy_Journey-removebg-preview.png" height="100px" width="120px">
+            <div class="date">
+                <p id="formi">Date of Journey : </p><input type="date">
+            </div>
+            <div class="src">
+                <p id="formi">Source station : </p><input type="text" placeholder="CODE">
+            </div>
+            <div class="dest">
+                <p id="formi">Destination station : </p><input type="text" placeholder="CODE">
+            </div>
+            <div class="searchBtn" onclick="check()">Show Trains</div>
+            <div id="signOutUser"><img id="signOut" src="New folder/user.png" alt=""> Sign Out</div>
+        </div>
+
+        <div class="pannels" id="train">
+            <!-- <div class="trainsAvailable"> -->
+            <div class="h">Trains Available</div>
+            <div class="trainList">
+                <div id="setUpdate"></div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="trainListItem">
+                    <div class="t_Img">
+                        <img src="New folder/train (1).png" alt="">
+                    </div>
+                    <div class="tName"></div>
+                    <div class="ss_tag">Depart At</div>
+                    <div class="time_tag">Total Time</div>
+                    <div class="ds_tag">Arrive At</div>
+                    <div class="ssdetails"></div>
+                    <div class="timeLine"></div>
+                    <div class="dsdetails"></div>
+                </div>
+                <div class="goButton" onclick="T_Book()">Book Tickets</div>
+            </div>
+        </div>
+        <div class="pannels" id="visit">
+            <div class="visit_form">
+                <input type="text" placeholder="Destination Place">
+                <div class="searchBtn" onclick="printPlaces()">Search</div>
+                <p class="formi">Tourist Places</p>
+            </div>
+            <div id="visitPlaceList">
+                <ul ></ul>
+        </div>
+        </div>
+    </div>
+    <script src="back.js"></script>
+</body>
+
+<script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import { signInWithEmailAndPassword, getAuth, signInWithPopup, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyD9PcCBlTZf8hx8Rt4px0-UjsjwSAAJ700",
+        authDomain: "easyjourney-8f109.firebaseapp.com",
+        projectId: "easyjourney-8f109",
+        storageBucket: "easyjourney-8f109.appspot.com",
+        messagingSenderId: "209558077145",
+        appId: "1:209558077145:web:f74feea1da41b7010248c8"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    signOutUser.addEventListener('click', (e) => {
+        signOut(auth).then(() => {
+            //sign out succesful
+            alert('User Logged out');
+            location.replace('index.html');
+        }).catch((error) => {
+            //an error happened
+            const errorCode = error.code;
+            const errorMessage = error.Message;
+            alert(errorMessage);
+        })
+    })
+</script>
+
+
+</html>

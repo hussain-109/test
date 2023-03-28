@@ -1,0 +1,12 @@
+Facebook :
+App Id - easyJourneyProject 
+app secret - Nothing
+
+Google : 
+name - easyJourneyProject
+supporting mail - hussain2003akhtar@gmail.com
+
+Twitter :
+App Id - easyJourneyProject 
+app secret - Nothing
+
